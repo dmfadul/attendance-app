@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Event Editor</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <h1>Attendance Form Generator</h1>
+
+  <form id="editor-form">
+    <label>
+      Event Name:
+      <input type="text" id="event-name" required>
+    </label><br>
+
+    <label>
+      Event Code (used in URLs):
+      <input type="text" id="event-code" placeholder="e.g., mathconf2025" required>
+    </label><br>
+
+    <label>
+      Number of Days:
+      <input type="number" id="num-days" min="1" value="1" required>
+    </label><br>
+
+    <label>
+      Sessions per Day:
+      <input type="number" id="sessions-per-day" min="1" value="2" required>
+    </label><br>
+
+    <label>
+      Participants (one per line):
+      <textarea id="participants" rows="10" cols="30" required></textarea>
+    </label><br>
+
+    <button type="submit">Generate Session Links</button>
+  </form>
+
+  <h2>Generated Links:</h2>
+  <ul id="generated-links"></ul>
+
+  <script src="../js/editor.js"></script>
+</body>
+</html>
