@@ -59,9 +59,32 @@ function getQueryParams() {
         const key = `attendance-${event}-${session}`;
         const prevData = JSON.parse(localStorage.getItem(key) || "[]");
         prevData.push(record);
-        localStorage.setItem(key, JSON.stringify(prevData, null, 2));
-  
-        showStatus("Check-in successful.");
+        const newData = JSON.stringify(prevData, null, 2);
+        localStorage.setItem(key, newData);
+
+        // Send to Netlify
+        fetch("https://espcendpoint.netlify.app/.netlify/functions/updateGist", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            eventCode: event,
+            sessionCode: session,
+            data: prevData  // not newData (string), keep it as array/object
+          })
+        })
+        .then(res => res.json())
+        .then(response => {
+          if (response.success) {
+            showStatus("Check-in successful and synced.");
+          } else {
+            showStatus("Saved locally, but failed to sync.", false);
+            console.error("Sync error:", response);
+          }
+        })
+        .catch(err => {
+          showStatus("Saved locally, but failed to sync.", false);
+          console.error("Sync error:", err);
+        });        
       }, error => {
         showStatus("Failed to get GPS location.", false);
       });
