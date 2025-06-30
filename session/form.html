@@ -3,22 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>Session Check-In</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/form.css">
 </head>
 <body>
-  <h1 id="form-title">Loading...</h1>
+  <div id="form-container">
+    <h1 id="form-title">Loading...</h1>
 
-  <form id="checkin-form">
-    <label>
-      Your Name:
-      <select id="name-select" required></select>
-    </label><br><br>
+    <form id="checkin-form">
+      <label>
+        Your Name:
+        <select id="name-select" required></select>
+      </label>
 
-    <button type="submit">Check In</button>
-  </form>
+      <button type="submit">Check In</button>
+    </form>
 
-  <div id="status"></div>
+    <div id="status"></div>
+  </div>
 
   <script src="../js/session.js"></script>
 </body>
+
 </html>
