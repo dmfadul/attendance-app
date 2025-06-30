@@ -28,19 +28,6 @@ function getQueryParams() {
     title.textContent = `Check-in: ${event} - ${session}`;
   
     const configRaw = localStorage.getItem(`config-${event}`);
-    fetch(`/configs/${event}.json`)
-      .then(res => {
-        if (!res.ok) throw new Error("Missing config");
-        return res.json();
-      })
-      .then(config => {
-        populateNamesDropdown(config.participants);
-      })
-      .catch(err => {
-        showStatus("Configuration not found for this event.", false);
-        document.getElementById("checkin-form").style.display = "none";
-      });
-      
     if (!configRaw) {
       showStatus("Configuration not found for this event.", false);
       document.getElementById("checkin-form").style.display = "none";
