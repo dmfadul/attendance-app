@@ -69,7 +69,7 @@ function getQueryParams() {
           body: JSON.stringify({
             eventCode: event,
             sessionCode: session,
-            data: prevData  // not newData (string), keep it as array/object
+            data: record  // not newData (string), keep it as array/object
           })
         })
         .then(res => res.json())
