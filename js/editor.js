@@ -41,18 +41,5 @@ document.getElementById("editor-form").addEventListener("submit", function (e) {
   
     // Store in localStorage for now
     localStorage.setItem(`config-${eventCode}`, JSON.stringify(config, null, 2));
-
-    // Create download link
-    const blob = new Blob([JSON.stringify(config, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-
-    const downloadLink = document.createElement("a");
-    downloadLink.href = url;
-    downloadLink.download = `${eventCode}.json`;
-    downloadLink.textContent = `⬇ Download ${eventCode}.json`;
-    downloadLink.style.display = "block";
-    downloadLink.style.marginTop = "10px";
-
-    document.getElementById("generated-links").appendChild(downloadLink);
     });
   
