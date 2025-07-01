@@ -2,20 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Session Check-In</title>
-  
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4 text-gray-900">
-  <div id="form-container" class="bg-white shadow-xl rounded-xl p-6 w-full max-w-md space-y-6">
-    <h1 id="form-title" class="text-2xl font-bold text-center">Loading...</h1>
+  <div class="bg-white shadow-xl rounded-xl p-6 w-full max-w-md mx-auto space-y-6">
+    <h1 id="form-title" class="text-2xl font-bold text-center">Session Check-In</h1>
 
     <form id="checkin-form" class="space-y-4">
       <div>
-        <label class="block font-medium mb-1" for="name-select">Your Name:</label>
+        <label for="name-select" class="block font-medium mb-1">Your Name:</label>
         <select id="name-select" required
                 class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-500">
-          <!-- Options populated by JS -->
+          <option value="">-- Select --</option>
+          <option value="Alice">Alice</option>
+          <option value="Bob">Bob</option>
         </select>
       </div>
 
@@ -27,7 +29,5 @@
 
     <div id="status" class="text-sm text-gray-600 text-center"></div>
   </div>
-
-  <script src="../js/session.js"></script>
 </body>
 </html>
