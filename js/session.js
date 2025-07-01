@@ -39,13 +39,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   const title = document.getElementById("form-title");
   title.textContent = `Check-in: ${event} - ${session}`;
 
-  console.log("Loaded config:");
-
   try {
     const config = await loadConfig(event);
     populateNamesDropdown(config.participants);
   } catch (err) {
-    console.log("Failed to load participants.");
     showStatus("Configuration not found or failed to load.", false);
     document.getElementById("checkin-form").style.display = "none";
     return;
