@@ -1,6 +1,19 @@
 const fetch = require('node-fetch');
 
 exports.handler = async function (event, context) {
+  // Handle preflight request (OPTIONS)
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS'
+      },
+      body: ''
+    };
+  }
+
   const { eventCode, config } = JSON.parse(event.body);
 
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
@@ -28,6 +41,9 @@ exports.handler = async function (event, context) {
 
   return {
     statusCode: res.status,
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    },
     body: JSON.stringify(result)
   };
 };
