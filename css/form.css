@@ -1,81 +1,98 @@
 /* Global resets and font */
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f4f6f8;
-    color: #333;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f4f6f8;
+  color: #333;
+}
+
+/* Flex layout fix */
+html, body {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align top on small screens */
+}
+
+/* Container wrapper for spacing on small screens */
+#form-container {
+  width: 90%;
+  max-width: 420px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* Title */
+#form-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #1d3557;
+}
+
+/* Labels and inputs */
+form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  text-align: left;
+}
+
+select, input, button {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+select:focus, input:focus {
+  border-color: #457b9d;
+  outline: none;
+  box-shadow: 0 0 4px #a8dadc;
+}
+
+/* Submit button */
+button[type="submit"] {
+  background-color: #1d3557;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+button[type="submit"]:hover {
+  background-color: #457b9d;
+}
+
+/* Status message */
+#status {
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+/* Mobile responsiveness */
+@media (max-height: 500px), (max-width: 420px) {
+  html, body {
+    align-items: flex-start;
   }
-  
-  /* Centered layout */
-  body, html {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
+
   #form-container {
-    width: 100%;
-    max-width: 420px;
-    padding: 2rem;
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    margin: 1rem;
+    padding: 1rem;
   }
-  
-  /* Header */
-  #form-title {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: #1d3557;
-  }
-  
-  /* Labels and inputs */
-  form label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    text-align: left;
-  }
-  
-  select, input, button {
-    width: 100%;
-    padding: 0.75rem;
-    margin-top: 0.5rem;
-    margin-bottom: 1.5rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1rem;
-    box-sizing: border-box;
-  }
-  
-  select:focus, input:focus {
-    border-color: #457b9d;
-    outline: none;
-    box-shadow: 0 0 4px #a8dadc;
-  }
-  
-  /* Submit button */
-  button[type="submit"] {
-    background-color: #1d3557;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-  }
-  
-  button[type="submit"]:hover {
-    background-color: #457b9d;
-  }
-  
-  /* Status message */
-  #status {
+
+  button, input, select {
     font-size: 0.95rem;
-    margin-top: 0.5rem;
-    font-weight: 500;
+    padding: 0.65rem;
   }
-  
-  /* Success / Error styling will be inline */
-  
+}
