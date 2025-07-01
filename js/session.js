@@ -1,3 +1,5 @@
+console.log("JS file loaded");
+
 function getQueryParams() {
     const params = new URLSearchParams(window.location.search);
     return {
