@@ -7,14 +7,21 @@ body {
     color: #333;
   }
   
-  /* Centered layout */
-  body, html {
-    height: 100%;
+  body {
+    padding: 1rem;
     display: flex;
     justify-content: center;
-    align-items: center;
   }
   
+  #form-container {
+    width: 100%;
+    max-width: 420px;
+    padding: 1.5rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+
   #form-container {
     width: 100%;
     max-width: 420px;
@@ -105,6 +112,22 @@ body {
   
     #status {
       font-size: 1.1rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    #form-container {
+      padding: 1rem;
+      border-radius: 8px;
+    }
+  
+    #form-title {
+      font-size: 1.2rem;
+    }
+  
+    select, input, button {
+      font-size: 0.95rem;
+      padding: 0.6rem;
     }
   }
   
