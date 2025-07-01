@@ -28,7 +28,7 @@ function getQueryParams() {
     title.textContent = `Check-in: ${event} - ${session}`;
   
     async function loadConfig(eventCode) {
-      const GIST_ID = 'your_gist_id'; // Hardcode is fine here
+      const GIST_ID = 'e2c98b8850cffdd04f61d8cbeaa0d04f'; // Hardcode is fine here
       const filename = `${eventCode}-config.json`;
       const url = `https://gist.githubusercontent.com/dmfadul/${GIST_ID}/raw/${filename}`;
     
