@@ -30,7 +30,7 @@ function getQueryParams() {
     async function loadConfig(eventCode) {
       const GIST_ID = 'your_gist_id'; // Hardcode is fine here
       const filename = `${eventCode}-config.json`;
-      const url = `https://gist.githubusercontent.com/YOUR_USERNAME/${GIST_ID}/raw/${filename}`;
+      const url = `https://gist.githubusercontent.com/dmfadul/${GIST_ID}/raw/${filename}`;
     
       const res = await fetch(url);
       if (!res.ok) throw new Error("Failed to load config");
