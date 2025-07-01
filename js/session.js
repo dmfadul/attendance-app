@@ -42,13 +42,13 @@ function getQueryParams() {
       const title = document.getElementById("form-title");
       title.textContent = `Check-in: ${event} - ${session}`;
     
+      console.log("Loaded config:");
       try {
         const config = await loadConfig(event);
-        console.log("Loaded config:", config);
-        console.log("Participants:", config.participants);
         populateNamesDropdown(config.participants);
         // Continue as before...
       } catch (err) {
+        console.log("Participants:");
         showStatus("Configuration not found or failed to load.", false);
         document.getElementById("checkin-form").style.display = "none";
       }
