@@ -44,6 +44,8 @@ function getQueryParams() {
     
       try {
         const config = await loadConfig(event);
+        console.log("Loaded config:", config);
+        console.log("Participants:", config.participants);
         populateNamesDropdown(config.participants);
         // Continue as before...
       } catch (err) {
