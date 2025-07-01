@@ -2,57 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Event Editor</title>
-  
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/style.css">
 </head>
-<body class="bg-gray-100 text-gray-900 min-h-screen flex items-center justify-center p-4">
-  <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-2xl space-y-6">
-    <h1 class="text-2xl font-bold text-center">Attendance Form Generator</h1>
+<body>
+  <h1>Attendance Form Generator</h1>
 
-    <form id="editor-form" class="space-y-4">
-      <div>
-        <label class="block font-medium">Event Name:</label>
-        <input type="text" id="event-name" required
-               class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-500">
-      </div>
+  <form id="editor-form">
+    <label>
+      Event Name:
+      <input type="text" id="event-name" required>
+    </label><br>
 
-      <div>
-        <label class="block font-medium">Event Code (used in URLs):</label>
-        <input type="text" id="event-code" placeholder="e.g., mathconf2025" required
-               class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-500">
-      </div>
+    <label>
+      Event Code (used in URLs):
+      <input type="text" id="event-code" placeholder="e.g., mathconf2025" required>
+    </label><br>
 
-      <div>
-        <label class="block font-medium">Number of Days:</label>
-        <input type="number" id="num-days" min="1" value="1" required
-               class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-500">
-      </div>
+    <label>
+      Number of Days:
+      <input type="number" id="num-days" min="1" value="1" required>
+    </label><br>
 
-      <div>
-        <label class="block font-medium">Sessions per Day:</label>
-        <input type="number" id="sessions-per-day" min="1" value="2" required
-               class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-500">
-      </div>
+    <label>
+      Sessions per Day:
+      <input type="number" id="sessions-per-day" min="1" value="2" required>
+    </label><br>
 
-      <div>
-        <label class="block font-medium">Participants (one per line):</label>
-        <textarea id="participants" rows="10" required
-                  class="w-full border border-gray-300 rounded px-3 py-2 resize-y focus:outline-none focus:ring focus:border-blue-500"></textarea>
-      </div>
+    <label>
+      Participants (one per line):
+      <textarea id="participants" rows="10" cols="30" required></textarea>
+    </label><br>
 
-      <button type="submit"
-              class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow">
-        Generate Session Links
-      </button>
-    </form>
+    <button type="submit">Generate Session Links</button>
+  </form>
 
-    <div>
-      <h2 class="text-xl font-semibold mt-6">Generated Links:</h2>
-      <ul id="generated-links" class="list-disc list-inside space-y-1 text-blue-700"></ul>
-    </div>
-  </div>
+  <h2>Generated Links:</h2>
+  <ul id="generated-links"></ul>
 
   <script src="../js/editor.js"></script>
 </body>
