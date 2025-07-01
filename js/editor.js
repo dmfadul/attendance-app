@@ -41,5 +41,21 @@ document.getElementById("editor-form").addEventListener("submit", function (e) {
   
     // Store in localStorage for now
     localStorage.setItem(`config-${eventCode}`, JSON.stringify(config, null, 2));
+
+    // Send config to Netlify backend
+    fetch("https://your-site.netlify.app/.netlify/functions/updateConfig", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ eventCode, config })
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log("Config synced to Gist:", data);
+    })
+    .catch(err => {
+      console.error("Error syncing config:", err);
     });
+  });
   

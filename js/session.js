@@ -27,15 +27,30 @@ function getQueryParams() {
     const title = document.getElementById("form-title");
     title.textContent = `Check-in: ${event} - ${session}`;
   
-    const configRaw = localStorage.getItem(`config-${event}`);
-    if (!configRaw) {
-      showStatus("Configuration not found for this event.", false);
-      document.getElementById("checkin-form").style.display = "none";
-      return;
+    async function loadConfig(eventCode) {
+      const GIST_ID = 'your_gist_id'; // Hardcode is fine here
+      const filename = `${eventCode}-config.json`;
+      const url = `https://gist.githubusercontent.com/YOUR_USERNAME/${GIST_ID}/raw/${filename}`;
+    
+      const res = await fetch(url);
+      if (!res.ok) throw new Error("Failed to load config");
+      return await res.json();
     }
-  
-    const config = JSON.parse(configRaw);
-    populateNamesDropdown(config.participants);
+    
+    document.addEventListener("DOMContentLoaded", async () => {
+      const { event, session } = getQueryParams();
+      const title = document.getElementById("form-title");
+      title.textContent = `Check-in: ${event} - ${session}`;
+    
+      try {
+        const config = await loadConfig(event);
+        populateNamesDropdown(config.participants);
+        // Continue as before...
+      } catch (err) {
+        showStatus("Configuration not found or failed to load.", false);
+        document.getElementById("checkin-form").style.display = "none";
+      }
+    });
   
     document.getElementById("checkin-form").addEventListener("submit", function (e) {
       e.preventDefault();
