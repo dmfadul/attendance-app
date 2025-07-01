@@ -38,9 +38,11 @@ document.getElementById("editor-form").addEventListener("submit", function (e) {
       participants,
       generatedAt: new Date().toISOString()
     };
-  
+    console.log("Generated config:", participants);
+    console.log("Config object:", eventCode);
+
     // Store in localStorage for now
-    localStorage.setItem(`config-${eventCode}`, JSON.stringify(config, null, 2));
+    // localStorage.setItem(`config-${eventCode}`, JSON.stringify(config, null, 2));
 
     // Send config to Netlify backend
     fetch("https://espcendpoint.netlify.app/.netlify/functions/updateConfig", {
