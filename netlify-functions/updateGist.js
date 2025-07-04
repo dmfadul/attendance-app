@@ -41,9 +41,6 @@ exports.handler = async function (event, context) {
 
     // Step 3: Append new data
     contentArray.push(data);
-    console.log("fileContent before parse:", fileContent);
-    console.log("New data to append:", data);
-
 
     // Step 4: Update the Gist with new content
     const payload = {
