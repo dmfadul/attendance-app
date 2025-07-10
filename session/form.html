@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Session Check-In</title>
+  <title>Check-In</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="../css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -13,18 +13,34 @@
       <div class="col-12 col-sm-10 col-md-8 col-lg-6">
         <div class="card shadow">
           <div class="card-body">
-            <h1 class="card-title text-center mb-4" id="form-title">Session Check-In</h1>
+            <h1 class="card-title text-center mb-4" id="form-title">Check-In</h1>
 
             <form id="checkin-form">
               <div class="mb-3">
-                <label for="name-select" class="form-label">Your Name:</label>
+                <label for="name-select" class="form-label">Seu Nome:</label>
                 <select id="name-select" class="form-select" required>
                   <!-- Options populated by JS -->
                 </select>
               </div>
-
-              <button type="submit" class="btn btn-success w-100">Check In</button>
+            
+              <div class="mb-3">
+                <label for="email-input" class="form-label">Seu Email:</label>
+                <input type="email" id="email-input" class="form-control" placeholder="name@example.com" required>
+              </div>
+            
+              <div class="mb-3">
+                <label for="function-select" class="form-label">Seu Cargo:</label>
+                <select id="function-select" class="form-select" required>
+                  <option value="Agente">Agente</option>
+                  <option value="Papiloscopista">Papiloscopista</option>
+                  <option value="Delegado">Delegado</option>
+                  <option value="Outro">Outro</option>
+                </select>
+              </div>
+            
+              <button type="submit" class="btn btn-success w-100">Responder</button>
             </form>
+            
 
             <div id="status" class="mt-3 text-center text-muted small"></div>
           </div>

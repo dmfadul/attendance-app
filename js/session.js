@@ -35,9 +35,19 @@ async function loadConfig(eventCode) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+  const turnoDict = {
+    "slot1": "Manhã",
+    "slot2": "Tarde",
+    "slot3": "Noite"
+  }
+
+
   const { event, session } = getQueryParams();
+  const [ day, turno ] = session.split("-");
+  const dia = day.replace("day", "dia ");
+
   const title = document.getElementById("form-title");
-  title.textContent = `Check-in: ${event} - ${session}`;
+  title.innerHTML = `${event}<br>${dia} - ${turnoDict[turno]}`;
 
   try {
     const config = await loadConfig(event);
@@ -50,7 +60,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   document.getElementById("checkin-form").addEventListener("submit", function (e) {
     e.preventDefault();
+    
     const participant = document.getElementById("name-select").value;
+    const email = document.getElementById("email-input").value;
+    const cargo = document.getElementById("function-select").value;
+
 
     if (!navigator.geolocation) {
       showStatus("Geolocation not supported.", false);
@@ -61,11 +75,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       const { latitude, longitude } = position.coords;
       const record = {
         name: participant,
+        email: email,
+        cargo: cargo,
         timestamp: new Date().toISOString(),
         location: { lat: latitude, lng: longitude },
         event,
         session
       };
+      
 
       const key = `attendance-${event}-${session}`;
       const prevData = JSON.parse(localStorage.getItem(key) || "[]");
