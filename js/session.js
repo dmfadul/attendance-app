@@ -117,4 +117,22 @@ document.addEventListener("DOMContentLoaded", async () => {
       showStatus("Failed to get GPS location.", false);
     });
   });
+
+  function generateQRCode(url) {
+    const qr = new QRious({
+      element: document.getElementById('qr-code'),
+      value: url,
+      size: 200
+    });
+  
+    // Generate download link
+    const canvas = document.getElementById('qr-code');
+    const link = document.getElementById('download-qr');
+    link.href = canvas.toDataURL("image/png");
+  }
+  
+  
+  const pageUrl = window.location.href;
+  generateQRCode(pageUrl);
+    
 });
