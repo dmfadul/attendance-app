@@ -8,8 +8,13 @@ function getQueryParams() {
   };
 }
 
-function populateNamesDropdown(participants) {
+function populateNamesDropdown(participants_raw) {
+  const participants = [...new Set(participants_raw).sort((a, b) =>
+    a.localeCompare(b, 'pt-BR', { sensitivity: 'base' })
+  )];
+  
   const select = document.getElementById('name-select');
+
   participants.forEach(name => {
     const option = document.createElement('option');
     option.value = name;
@@ -103,7 +108,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       .then(res => res.json())
       .then(response => {
         if (response.success) {
-          showStatus("Check-in successful and synced.");
+          showStatus("Resposta Registrada.");
         } else {
           showStatus("Saved locally, but failed to sync.", false);
           console.error("Sync error:", response);
