@@ -86,7 +86,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         session
       };
       
-
       const key = `attendance-${event}-${session}`;
       const prevData = JSON.parse(localStorage.getItem(key) || "[]");
       prevData.push(record);
@@ -133,7 +132,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const link = document.getElementById('download-qr');
     link.href = canvas.toDataURL("image/png");
   }
-  
   
   const pageUrl = window.location.href;
   generateQRCode(pageUrl);

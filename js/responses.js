@@ -1,6 +1,14 @@
 console.log("responses JS loaded");
 
-async function loadSessionsConfig() {
+function getQueryParams() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+      event: params.get('event'),
+      session: params.get('session')
+    };
+}
+
+async function loadResponses() {
   const GIST_ID = 'e2c98b8850cffdd04f61d8cbeaa0d04f';
 
   try {
@@ -8,10 +16,9 @@ async function loadSessionsConfig() {
     const data = await res.json();
     const files = data.files;
 
-    const params = new URLSearchParams(window.location.search);
-    const eventCode = params.get('event');
+    const { event, session } = getQueryParams();
     
-    const targetFileName = `${eventCode}-config.json`;
+    const targetFileName = `${event}-${session}.json`;
     const file = files[targetFileName];
 
     if (file) {
@@ -27,33 +34,25 @@ async function loadSessionsConfig() {
   }
 }
 
-function renderSessionLinks(config) {
-  const list = document.getElementById("session-links");
-  list.innerHTML = "";
+function renderResponses(fileContent) {
+    const list = document.getElementById("responses");
+    list.innerHTML = "";
 
-  const eventCode = config.eventCode;
-  const numDays = config.numDays;
-  const sessionsPerDay = config.sessionsPerDay;
-  
-  const baseUrl = window.location.origin + "/attendance-app/session/form.html?event=" + encodeURIComponent(eventCode);
-
-  for (let day = 1; day <= numDays; day++) {
-    for (let session = 1; session <= sessionsPerDay; session++) {
+    const respondents_raw = [];
+    fileContent.forEach((response) => {
+        respondents_raw.push(response.name);
+    });
+    
+    const respondents = [...new Set(respondents_raw.filter(p => typeof p === 'string'))].sort();
+    respondents.forEach((respondent) => {
         const li = document.createElement("li");
-        const a = document.createElement("a");
-
-        a.href = `${baseUrl}&session=day${day}-slot${session}`;
-        a.textContent = `form: ${config.eventCode}`;
-        a.target = "_blank";
-        a.className = "d-block mb-2 text-primary";
-
-        li.appendChild(a);
+        li.className = "list-group-item";
+        li.textContent = respondent;
         list.appendChild(li);
-    }
-  }
+    });
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const config = await loadSessionsConfig();
-  renderSessionLinks(config);
+  const fileContent = await loadResponses();
+  renderResponses(fileContent);
 });
