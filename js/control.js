@@ -36,6 +36,7 @@ function renderSessionLinks(config) {
   const sessionsPerDay = config.sessionsPerDay;
   
   const baseUrl = window.location.origin + "/attendance-app/session/form.html?event=" + encodeURIComponent(eventCode);
+  const responseUrl = window.location.origin + "/attendance-app/session/responses.html?event=" + encodeURIComponent(eventCode);
 
   for (let day = 1; day <= numDays; day++) {
     for (let session = 1; session <= sessionsPerDay; session++) {
@@ -43,7 +44,22 @@ function renderSessionLinks(config) {
         const a = document.createElement("a");
 
         a.href = `${baseUrl}&session=day${day}-slot${session}`;
-        a.textContent = `form: ${config.eventCode}`;
+        a.textContent = `form: ${config.eventCode}: Dia ${day} Turno ${session}`;
+        a.target = "_blank";
+        a.className = "d-block mb-2 text-primary";
+
+        li.appendChild(a);
+        list.appendChild(li);
+    }
+  }
+
+  for (let day = 1; day <= numDays; day++) {
+    for (let session = 1; session <= sessionsPerDay; session++) {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+
+        a.href = `${responseUrl}&session=day${day}-slot${session}`;
+        a.textContent = `Respostas: ${config.eventCode}: Dia ${day} Turno ${session}`;
         a.target = "_blank";
         a.className = "d-block mb-2 text-primary";
 
