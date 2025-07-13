@@ -28,7 +28,7 @@ function renderConfigLinks(configs) {
   list.innerHTML = "";
 
   if (configs.length === 0) {
-    list.innerHTML = "<li>No config files found.</li>";
+    list.innerHTML = "<li>Nenhum config file Encontrado.</li>";
     return;
   }
 

@@ -1,6 +1,6 @@
 console.log("controls JS loaded");
 
-async function loadSessionsLinks() {
+async function loadSessionsConfig() {
   const GIST_ID = 'e2c98b8850cffdd04f61d8cbeaa0d04f';
 
   try {
@@ -8,47 +8,52 @@ async function loadSessionsLinks() {
     const data = await res.json();
     const files = data.files;
 
-    const configFiles = Object.keys(files).filter(filename =>
-      filename.toLowerCase().includes('config')
-    );
+    const params = new URLSearchParams(window.location.search);
+    const eventCode = params.get('event');
+    
+    const targetFileName = `${eventCode}-config.json`;
+    const file = files[targetFileName];
 
-    return configFiles.map(filename => ({
-      filename,
-      eventCode: filename.split('-config')[0],
-      content: files[filename].content // optional, in case you want to show preview
-    }));
+    if (file) {
+        const configContent = JSON.parse(file.content);
+        return configContent;
+      } else {
+        console.error(`File ${targetFileName} not found in gist.`);
+        return [];
+      }
   } catch (err) {
     console.error("Error loading configs:", err);
     return [];
   }
 }
 
-function renderConfigLinks(configs) {
-  const list = document.getElementById("config-links");
+function renderSessionLinks(config) {
+  const list = document.getElementById("session-links");
   list.innerHTML = "";
 
-  if (configs.length === 0) {
-    list.innerHTML = "<li>No config files found.</li>";
-    return;
+  const eventCode = config.eventCode;
+  const numDays = config.numDays;
+  const sessionsPerDay = config.sessionsPerDay;
+  
+  const baseUrl = window.location.origin + "/attendance-app/session/form.html?event=" + encodeURIComponent(eventCode);
+
+  for (let day = 1; day <= numDays; day++) {
+    for (let session = 1; session <= sessionsPerDay; session++) {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+
+        a.href = `${baseUrl}&session=day${day}-slot${session}`;
+        a.textContent = `form: ${config.eventCode}`;
+        a.target = "_blank";
+        a.className = "d-block mb-2 text-primary";
+
+        li.appendChild(a);
+        list.appendChild(li);
+    }
   }
-
-  const baseUrl = window.location.origin + "/attendance-app/session/control.html";
-
-  configs.forEach(config => {
-    const li = document.createElement("li");
-    const a = document.createElement("a");
-
-    a.href = `${baseUrl}?event=${encodeURIComponent(config.eventCode)}`;
-    a.textContent = `Control Panel: ${config.eventCode}`;
-    a.target = "_blank";
-    a.className = "d-block mb-2 text-primary";
-
-    li.appendChild(a);
-    list.appendChild(li);
-  });
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const configs = await loadConfigs();
-  renderConfigLinks(configs);
+  const config = await loadSessionsConfig();
+  renderSessionLinks(config);
 });
