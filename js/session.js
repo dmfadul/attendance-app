@@ -9,11 +9,9 @@ function getQueryParams() {
 }
 
 function populateNamesDropdown(participants_raw) {
-  const participants = [...new Set(participants_raw).sort((a, b) =>
-    a.localeCompare(b, 'pt-BR', { sensitivity: 'base' })
-  )];
-  
   const select = document.getElementById('name-select');
+
+  const participants = [...new Set(participants_raw.filter(p => typeof p === 'string'))].sort();
 
   participants.forEach(name => {
     const option = document.createElement('option');
