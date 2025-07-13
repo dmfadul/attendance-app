@@ -44,16 +44,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     "slot3": "Noite"
   }
 
-
   const { event, session } = getQueryParams();
   const [ day, turno ] = session.split("-");
   const dia = day.replace("day", "dia ");
 
   const title = document.getElementById("form-title");
-  title.innerHTML = `${event}<br>${dia} - ${turnoDict[turno]}`;
 
   try {
     const config = await loadConfig(event);
+    const eventName = config.eventName;
+    title.innerHTML = `${eventName}<br>${dia} - ${turnoDict[turno]}`;
     populateNamesDropdown(config.participants);
   } catch (err) {
     showStatus("Configuration not found or failed to load.", false);
