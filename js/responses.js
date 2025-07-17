@@ -16,7 +16,7 @@ async function loadResponses() {
     const data = await res.json();
     const files = data.files;
 
-    const { event, session } = getQueryParams();
+    let { event, session } = getQueryParams();
     
     const targetFileName = `${event}-${session}.json`;
     const file = files[targetFileName];
@@ -61,21 +61,57 @@ async function loadParticipants() {
 }
 
 function renderResponses(fileContent) {
-    const list = document.getElementById("responses");
-    list.innerHTML = "";
+  const turnoDict = {
+    "slot1": "Manhã",
+    "slot2": "Tarde",
+    "slot3": "Noite"
+  }
+  
+  const h1 = document.getElementById("form-title");
+  
+  const { event, session } = getQueryParams();
+  const [ day, turno ] = session.split("-");
+  const dia = day.replace("day", "dia ");
 
-    const respondents_raw = [];
-    fileContent.forEach((response) => {
-        respondents_raw.push(response.name);
-    });
-    
-    const respondents = [...new Set(respondents_raw.filter(p => typeof p === 'string'))].sort();
-    respondents.forEach((respondent, index) => {
-        const li = document.createElement("li");
-        li.className = "list-group-item";
-        li.textContent = `${String(index + 1).padStart(2, '0')}. ${respondent}`;
-        list.appendChild(li);
-    });
+  h1.innerHTML = `Respostas: ${event}<br>${dia} - ${turnoDict[turno]}`;
+  
+  const tableBody = document.querySelector("#responses tbody");
+  tableBody.innerHTML = "";
+
+  const respondents = fileContent.filter(r => typeof r.name === 'string');
+
+  respondents.sort((a, b) => a.name.localeCompare(b.name));
+
+  let lastRespondentName = null;
+  respondents.forEach((response, index) => {
+      if (response.name === lastRespondentName) {
+          return; // Skip duplicate names
+      } else {
+          lastRespondentName = response.name;
+      }
+      const { location, timestamp } = response;
+
+      const row = document.createElement("tr");
+
+      const idxCell = document.createElement("td");
+      idxCell.textContent = String(index + 1).padStart(2, '0');
+      row.appendChild(idxCell);
+
+      const nameCell = document.createElement("td");
+      nameCell.textContent = response.name;
+      row.appendChild(nameCell);
+
+      const locationCell = document.createElement("td");
+      locationCell.textContent = location ? `${location.lat.toFixed(6)}, ${location.lng.toFixed(6)}` : "N/A";
+      row.appendChild(locationCell);
+
+      const timestampCell = document.createElement("td");
+      const date = new Date(timestamp);
+      timestampCell.textContent = isNaN(date.getTime()) ? "Invalid date" : date.toLocaleString("pt-BR");
+      row.appendChild(timestampCell);
+
+      tableBody.appendChild(row);
+  });
 }
 
 function renderMissingParticipants(missingParticipantsRaw) {
